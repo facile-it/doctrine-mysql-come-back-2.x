@@ -4,7 +4,6 @@
          colors="true"
          bootstrap="./vendor/autoload.php" 
          beStrictAboutOutputDuringTests="true"
-         beStrictAboutTodoAnnotatedTests="true"
          failOnRisky="true"
          failOnWarning="true"
 >
