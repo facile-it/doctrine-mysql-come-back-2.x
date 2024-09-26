@@ -43,13 +43,6 @@ trait ConnectionTrait
         $this->commonConstructor($params, $driver, $config);
     }
 
-    /**
-     * @param array $params
-     * @param Driver $driver
-     * @param Configuration|null $config
-     *
-     * @return void
-     */
     private function commonConstructor(array &$params, Driver $driver, ?Configuration $config): void
     {
         if (isset($params['driverOptions']['x_reconnect_attempts'])) {
