@@ -26,6 +26,8 @@ jobs:
           - "8.0"
         dependencies:
           - "highest"
+        composer-options: 
+          - "--prefer-dist"
         job:
           - Tests
         # https://stackoverflow.com/questions/78445419/unknown-variable-default-authentication-plugin-mysql-native-password
@@ -43,6 +45,9 @@ jobs:
           - php-version: "8.2"
             mysql-version: "5.7"
             job: Tests
+          - php-version: "8.4"
+            composer-options: "--prefer-dist --ignore-platform-req=php+"
+            mysql-version: "8.0"
           - php-version: "8.1"
             mysql-version: "8.0"
             job: Infection
@@ -81,7 +86,7 @@ jobs:
         uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.dependencies }}
-          composer-options: --prefer-dist
+          composer-options: ${{ matrix.composer-options }}
 
       - name: "Run PHPUnit with coverage"
         run: "vendor/bin/phpunit -c ci/github/phpunit/phpunit.xml --coverage-clover=coverage.xml"
