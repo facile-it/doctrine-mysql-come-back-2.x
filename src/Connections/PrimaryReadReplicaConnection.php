@@ -13,6 +13,11 @@ class PrimaryReadReplicaConnection extends \Doctrine\DBAL\Connections\PrimaryRea
         __construct as __traitConstruct;
     }
 
+    /**
+     * @param array<string,mixed> $params
+     *
+     * @psalm-suppress MixedArrayAccess,MixedArrayAssignment
+     */
     public function __construct(array $params, Driver $driver, ?Configuration $config = null, ?EventManager $eventManager = null)
     {
         if (isset($params['primary']['driverOptions']['x_reconnect_attempts'])) {
