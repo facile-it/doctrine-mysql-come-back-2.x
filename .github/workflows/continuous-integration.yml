@@ -4,8 +4,7 @@ on:
   pull_request: null
   push:
     branches:
-      - "*.x"
-      - "master"
+      - "2.x"
   schedule:
     - cron: "42 3 * * 1"
 
