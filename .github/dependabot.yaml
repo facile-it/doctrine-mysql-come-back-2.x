@@ -7,8 +7,5 @@ updates:
     open-pull-requests-limit: 10
   - package-ecosystem: "composer"
     directory: "/"
-    ignore:
-      - dependency-name: "php"
-        versions: [ "7.*" ]
     schedule:
       interval: weekly

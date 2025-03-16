@@ -2,6 +2,7 @@
 
 namespace Facile\DoctrineMySQLComeBack\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -12,10 +13,9 @@ use Prophecy\Argument;
 class PrimaryReadReplicaConnectionTest extends ConnectionTraitTestCase
 {
     /**
-     * @dataProvider invalidAttemptsDataProvider
-     *
      * @param mixed $invalidValue
      */
+    #[DataProvider('invalidAttemptsDataProvider')]
     public function testDriverOptionsValidation($invalidValue, string $errorMessage): void
     {
         $this->expectException(\InvalidArgumentException::class);

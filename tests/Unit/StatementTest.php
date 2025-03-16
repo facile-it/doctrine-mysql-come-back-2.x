@@ -2,6 +2,7 @@
 
 namespace Facile\DoctrineMySQLComeBack\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\Statement as DriverStatement;
@@ -30,9 +31,7 @@ class StatementTest extends BaseUnitTestCase
         $statement->executeStatement();
     }
 
-    /**
-     * @dataProvider attemptsDataProvider
-     */
+    #[DataProvider('attemptsDataProvider')]
     public function testReconnectionAttempsShouldRunOut(int $attempts): void
     {
         $driver = $this->prophesize(Driver::class);

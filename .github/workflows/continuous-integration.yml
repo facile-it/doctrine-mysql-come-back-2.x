@@ -16,11 +16,10 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "7.4"
-          - "8.0"
           - "8.1"
           - "8.2"
           - "8.3"
+          - "8.4"
         mysql-version:
           - "8.0"
         dependencies:
@@ -30,25 +29,16 @@ jobs:
         job:
           - Tests
         include:
-          - php-version: "7.4"
-            mysql-version: "8.0"
-            custom-entrypoint: ~
-            job: Tests
-          - php-version: "7.4"
-            mysql-version: "5.7"
-            custom-entrypoint: ~
-            job: Tests
           - php-version: "8.2"
             mysql-version: "5.7"
-            job: Tests
           - php-version: "8.4"
             composer-options: "--prefer-dist --ignore-platform-req=php+"
             mysql-version: "8.0"
-          - php-version: "8.1"
+          - php-version: "8.3"
             mysql-version: "8.0"
             job: Infection
           - dependencies: "lowest"
-            php-version: "7.4"
+            php-version: "8.1"
             mysql-version: "5.7"
             name: Lowest deps
 
@@ -78,6 +68,14 @@ jobs:
           ini-values: "zend.assertions=1"
           extensions: "mysqli, pdo_mysql"
 
+      - name: Remove unneeded dependencies
+        if: matrix.php-version == '8.1'
+        run: |-
+          composer remove --dev --no-update \
+            facile-it/facile-coding-standard \
+            psalm/plugin-phpunit \
+            vimeo/psalm
+
       - name: Install dependencies
         uses: ramsey/composer-install@v3
         with:
@@ -89,7 +87,7 @@ jobs:
         if: matrix.job != 'infection'
 
       - name: "Run mutation testing with Infection"
-        run: "vendor/bin/infection --ansi --show-mutations"
+        run: "vendor/bin/roave-infection-static-analysis-plugin --ansi --show-mutations"
         if: matrix.job == 'infection'
 
       - name: Upload code coverage

@@ -2,6 +2,7 @@
 
 namespace Facile\DoctrineMySQLComeBack\Tests\Functional;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Doctrine\DBAL\Connection as DBALConnection;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\DriverManager;
@@ -41,10 +42,9 @@ class PrimaryReadReplicaConnectionTest extends ConnectionTraitTest
     }
 
     /**
-     * @dataProvider driverDataProvider
-     *
      * @param class-string<Driver> $driver
      */
+    #[DataProvider('driverDataProvider')]
     public function testBeginTransactionShouldNotInterfereWhenSwitchingToPrimary(string $driver, bool $enableSavepoints): void
     {
         $connection = $this->createConnection($driver, 0, $enableSavepoints);

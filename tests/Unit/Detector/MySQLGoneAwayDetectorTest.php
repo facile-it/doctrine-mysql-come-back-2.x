@@ -2,6 +2,7 @@
 
 namespace Facile\DoctrineMySQLComeBack\Tests\Unit\Detector;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Facile\DoctrineMySQLComeBack\Doctrine\DBAL\Detector\MySQLGoneAwayDetector;
 use Facile\DoctrineMySQLComeBack\Tests\Unit\BaseUnitTestCase;
 
@@ -15,9 +16,7 @@ class MySQLGoneAwayDetectorTest extends BaseUnitTestCase
 
     private const NOT_RETRYABLE_ERROR = 'Unknown error';
 
-    /**
-     * @dataProvider isUpdateQueryDataProvider
-     */
+    #[DataProvider('isUpdateQueryDataProvider')]
     public function testIsUpdateQuery(string $query, bool $isUpdate): void
     {
         $error = new \Exception(self::RETRYABLE_ERROR_OUTSIDE_UPDATE);
@@ -28,9 +27,7 @@ class MySQLGoneAwayDetectorTest extends BaseUnitTestCase
         $this->assertTrue($goneAwayDetector->isGoneAwayException($error, 'SELECT 1'));
     }
 
-    /**
-     * @dataProvider savepointDataProvider
-     */
+    #[DataProvider('savepointDataProvider')]
     public function testSavepointShouldNotBeRetried(string $sql): void
     {
         $error = new \Exception(self::RETRYABLE_ERROR_ON_SERVER_GONE);
@@ -41,9 +38,7 @@ class MySQLGoneAwayDetectorTest extends BaseUnitTestCase
         $this->assertTrue($goneAwayDetector->isGoneAwayException($error, 'SELECT 1'));
     }
 
-    /**
-     * @dataProvider isGoneAwayExceptionDataProvider
-     */
+    #[DataProvider('isGoneAwayExceptionDataProvider')]
     public function testIsGoneAwayException(string $message, bool $isUpdate, bool $expectedIsGoneAwayException): void
     {
         $error = new \Exception($message);
