@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 * ...
 
+## [2.1.0] - TBA
+* Bump minimum PHP version to 8.1
+
 ## [2.0.1] - 2025-03-16
 * Resolve PHP 8.4 deprecation
 
