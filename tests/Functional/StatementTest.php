@@ -2,6 +2,7 @@
 
 namespace Facile\DoctrineMySQLComeBack\Tests\Functional;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Doctrine\DBAL\Driver;
 use Facile\DoctrineMySQLComeBack\Tests\DeprecationTrait;
 
@@ -10,10 +11,9 @@ class StatementTest extends AbstractFunctionalTestCase
     use DeprecationTrait;
 
     /**
-     * @dataProvider driverDataProvider
-     *
      * @param class-string<Driver> $driver
      */
+    #[DataProvider('driverDataProvider')]
     public function testRetriesShouldNotRetryConnection(string $driver, bool $enableSavepoints): void
     {
         $connection = $this->createConnection($driver, 1, $enableSavepoints);
@@ -29,10 +29,9 @@ class StatementTest extends AbstractFunctionalTestCase
     }
 
     /**
-     * @dataProvider driverDataProvider
-     *
      * @param class-string<Driver> $driver
      */
+    #[DataProvider('driverDataProvider')]
     public function testExecuteQueryWithDeprecatedPassingParams(string $driver, bool $enableSavepoints): void
     {
         $connection = $this->createConnection($driver, 1, $enableSavepoints);
@@ -44,10 +43,9 @@ class StatementTest extends AbstractFunctionalTestCase
     }
 
     /**
-     * @dataProvider driverDataProvider
-     *
      * @param class-string<Driver> $driver
      */
+    #[DataProvider('driverDataProvider')]
     public function testExecuteStatementWithDeprecatedPassingParams(string $driver, bool $enableSavepoints): void
     {
         $connection = $this->createConnection($driver, 1, $enableSavepoints);

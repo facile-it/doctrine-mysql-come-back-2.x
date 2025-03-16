@@ -130,7 +130,7 @@ abstract class AbstractFunctionalTestCase extends TestCase
         $ids = $connection->fetchFirstColumn('SELECT CONNECTION_ID()');
 
         foreach ($ids as $id) {
-            $connection2->executeStatement('KILL ' . $id);
+            $connection2->executeStatement(sprintf('KILL %d', $id));
         }
         $connection2->close();
     }
@@ -155,7 +155,7 @@ abstract class AbstractFunctionalTestCase extends TestCase
     {
         $this->assertTrue(
             property_exists($connection, 'connectCount'),
-            'Expecting connection that implements ConnectionTraint, got ' . get_class($connection)
+            'Expecting connection that implements ConnectionTraint, got ' . $connection::class
         );
 
         $this->assertSame($expected, $connection->connectCount);
